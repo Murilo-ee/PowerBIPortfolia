@@ -22,7 +22,7 @@ O dashboard contém os seguintes visuais principais:
 - **Cards de KPIs:** destacam os principais indicadores — valores do ano atual, ano anterior, diferença absoluta e percentual de lucro.
 - **Slicer Dinâmico:** permite alternar entre os KPIs de forma simples.
 
-![Dashboard Geral](dashboards/Dashboard1.jpg)
+![Dashboard Geral](Dashboard1.jpg)
 
 ---
 
@@ -35,7 +35,7 @@ A hierarquia de detalhamento segue a seguinte ordem:
 
 No exemplo abaixo, foi realizado o drill down em um mês específico, detalhando os resultados por **tipo de produto**. Essa funcionalidade permite investigar rapidamente quais categorias mais impactaram o desempenho mensal.
 
-![Drill Down no Waterfall](dashboards/Dashboard2.jpg)
+![Drill Down no Waterfall](Dashboard2.jpg)
 
 ---
 
@@ -46,7 +46,7 @@ O scatterplot exibe a **lucratividade (%)** de cada conta em relação ao **valo
 
 No exemplo abaixo, foi selecionada **uma única conta**, permitindo analisar sua performance detalhada.
 
-![Segmentação de Contas](dashboards/Dashboard3.jpg)
+![Segmentação de Contas](Dashboard3.jpg)
 
 
 ## 🛠️ Ferramentas e Tecnologias
