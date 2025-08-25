@@ -10,6 +10,45 @@ Todas as medidas foram feitas em DAX no objetivo de desenvolver as minhas habili
 O painel oferece uma visão gerencial dos KPI's e contem dois filtros que afetam todo o dashboard, é possivel filtrar por Ano e por tipo de indicador ( Lucro, Faturamento bruto  e Quantidade), todos os titulos são atualizados de acordo com o que esta sendo visualizado e os visuais são interativos
 
 
+
+## **Visão Geral do Dashboard**
+
+O dashboard contém os seguintes visuais principais:
+
+- **Treemap – Arrecadação por País:** identifica rapidamente os países com maior e menor participação na receita.
+- **Gráfico Waterfall – Variação Mês a Mês:** mostra se houve aumento ou redução no KPI selecionado (**Vendas, Quantidade ou Lucro Bruto**).  
+- **Gráfico de Colunas + Linha – Comparativo Ano a Ano:** compara a evolução mensal do KPI escolhido com o acumulado do ano anterior.
+- **Scatterplot – Lucratividade por Conta:** apresenta a relação entre **margem de lucro (%)** e **acúmulo no ano** para cada conta de cliente.
+- **Cards de KPIs:** destacam os principais indicadores — valores do ano atual, ano anterior, diferença absoluta e percentual de lucro.
+- **Slicer Dinâmico:** permite alternar entre os KPIs de forma simples.
+
+![Dashboard Geral](dashboards/Dashboard1.jpg)
+
+---
+
+## **Drill Down no Gráfico Waterfall**
+
+O gráfico waterfall permite realizar **drill down** para analisar os resultados com mais profundidade.  
+A hierarquia de detalhamento segue a seguinte ordem:
+
+**Mês → Tipo de Produto → Produto**
+
+No exemplo abaixo, foi realizado o drill down em um mês específico, detalhando os resultados por **tipo de produto**. Essa funcionalidade permite investigar rapidamente quais categorias mais impactaram o desempenho mensal.
+
+![Drill Down no Waterfall](dashboards/Dashboard2.jpg)
+
+---
+
+## **Segmentação de Contas no Scatterplot**
+
+O scatterplot exibe a **lucratividade (%)** de cada conta em relação ao **valor acumulado no ano**.  
+É possível selecionar uma **conta específica** diretamente no gráfico, filtrando todos os demais visuais para acompanhar os indicadores relacionados a esse cliente individualmente.
+
+No exemplo abaixo, foi selecionada **uma única conta**, permitindo analisar sua performance detalhada.
+
+![Segmentação de Contas](dashboards/Dashboard3.jpg)
+
+
 ## 🛠️ Ferramentas e Tecnologias
 | Ferramenta | Finalidade |
 |-----------|------------|
@@ -84,15 +123,3 @@ Tabela de **dimensão de produtos** (tabela dimensão), com detalhes sobre famí
 
 
 ---
-
-Exemplo de como colocar imagens:
-
-```markdown
-### 📌 Visão Geral
-![Dashboard — Visão Geral](./images/visao_geral.png)
-
-### 📌 Evolução YTD vs PYTD
-![Dashboard — YTD vs PYTD](./images/ytd_vs_pytd.png)
-
-### 📌 Análise por Produto
-![Dashboard — Produto](./images/analise_produto.png)
