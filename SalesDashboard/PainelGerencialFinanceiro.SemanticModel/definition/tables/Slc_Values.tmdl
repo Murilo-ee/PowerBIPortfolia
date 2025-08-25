@@ -1,0 +1,38 @@
+table Slc_Values
+	lineageTag: 5936fb40-29eb-4e99-9a3a-04174048d4bf
+
+	column Values
+		dataType: string
+		lineageTag: 1c5b49e6-5cda-4151-9c6b-12f55fe10b3e
+		summarizeBy: none
+		sourceColumn: Values
+
+		annotation SummarizationSetBy = Automatic
+
+	column Display = ```
+			
+			SWITCH (
+			    [Values],
+			    "Gross Profit", "Lucro Bruto",
+			    "Quantity", "Quantidade",
+			    "Sales", "Vendas",
+			    [Values]   // fallback para qualquer outro valor
+			)
+			
+			```
+		lineageTag: cc5e9170-3822-4aa1-87d1-278c6b17691a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Slc_Values = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCk7MSS1WitWJVnIvyi8uVggoyk/LLAELBJYm5pVkllQqxcYCAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Values = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Values", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

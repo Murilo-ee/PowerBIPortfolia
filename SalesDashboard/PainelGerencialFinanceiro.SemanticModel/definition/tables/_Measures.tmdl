@@ -1,0 +1,262 @@
+table _Measures
+	lineageTag: 281a1e6f-7bed-4a30-a7e2-cc9b740f9f2b
+
+	measure Sales = SUM(Fact_sales[Sales_USD])
+		displayFolder: Base Measures
+		lineageTag: c6027696-34a0-4788-b29c-a41312ddc312
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Quantity = Sum(Fact_sales[quantity])
+		displayFolder: Base Measures
+		lineageTag: e6d75759-660a-4147-8500-a1c2f312ce9d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure COGs = SUM(Fact_sales[COGS_USD])
+		isHidden
+		displayFolder: Base Measures
+		lineageTag: c0b19259-78df-4883-9916-f2ef73307961
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Gross_Profit = [Sales]- [COGs]
+		displayFolder: Base Measures
+		lineageTag: 8cf008ce-52cd-4d4c-b854-57af7f8998b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PYTD_Sales = ```
+			
+			CALCULATE(
+			    [Sales],
+			    DATESYTD(SAMEPERIODLASTYEAR(Dim_Date[Date]))
+			)
+			
+			```
+		displayFolder: PYTD
+		lineageTag: f7786765-ef13-4ef7-8fef-679873c9a25a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PYTD_Quantity = ```
+			
+			CALCULATE (
+			    TOTALYTD (
+			        [Quantity],                         
+			        Dim_Date[Date]
+			    ),
+			    SAMEPERIODLASTYEAR (Dim_Date[Date])
+			)
+			
+			```
+		displayFolder: PYTD
+		lineageTag: b86135c4-2390-4d7d-a191-aae69a499ca0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PYTD_GrossProfit = ```
+			
+			CALCULATE(
+			    [Gross_Profit],
+			    SAMEPERIODLASTYEAR(Dim_Date[Date])
+			)
+			
+			```
+		displayFolder: PYTD
+		lineageTag: 3eaba871-dd17-4c8f-a8e1-77d56b4b6324
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_Sales = ```
+			
+			TOTALYTD (
+			    [Sales],                
+			    Dim_Date[Date]          
+			)
+			
+			```
+		displayFolder: YTD
+		lineageTag: d101fb91-be36-4f94-94af-9ae678492901
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_qtd = TOTALYTD([Quantity], Fact_sales[Date_Time])
+		displayFolder: YTD
+		lineageTag: f2a3aaac-87ba-462d-946b-2e8c421b1898
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_GrossProfit = TOTALYTD([Gross_Profit], Fact_sales[Date_Time])
+		displayFolder: YTD
+		lineageTag: ce599cc1-0982-4b07-8624-f427ad7f0749
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Switch_PYTD = ```
+			
+			VAR selected_value = SELECTEDVALUE(Slc_Values[Values])
+			VAR result =
+			    SWITCH(
+			        selected_value,
+			        "Sales", [PYTD_Sales],
+			        "Quantity", [PYTD_Quantity],
+			        "Gross Profit", [PYTD_GrossProfit],
+			        BLANK()
+			    )
+			RETURN
+			    result
+			
+			```
+		displayFolder: Switch
+		lineageTag: 8f6465bd-8843-49c4-abbc-d8104dfc5fab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Switch_YTD = ```
+			
+			VAR selected_value = SELECTEDVALUE(Slc_Values[Values])
+			VAR result =
+			    SWITCH(
+			        selected_value,
+			        "Sales", [YTD_sales],
+			        "Quantity", [YTD_qtd],
+			        "Gross Profit", [YTD_GrossProfit],
+			        BLANK()
+			    )
+			RETURN
+			    result
+			
+			```
+		displayFolder: Switch
+		lineageTag: ea366d19-21cc-4967-bfc5-98dac2359888
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_VS_PYTD = [Switch_YTD] - [Switch_PYTD]
+		displayFolder: Switch
+		lineageTag: 37d87a1c-f314-4e72-8f8c-ff336e76c0d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Debug_SAMEPERIODLASTYEAR = ```
+			
+			VAR DatesReturned =
+			    CALCULATETABLE (
+			        VALUES ( Dim_Date[Date] ),
+			        SAMEPERIODLASTYEAR ( Dim_Date[Date] )
+			    )
+			RETURN
+			COUNTROWS ( DatesReturned )
+			
+			```
+		formatString: 0
+		lineageTag: fb7b803a-cbc3-4c58-934a-94acde007b21
+
+	measure GP% = DIVIDE([Gross_Profit],[Sales])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ff83c4ae-58cc-4988-9b77-7d2c2097f831
+
+	measure 'Título Diferença' = ```
+			
+			VAR Nivel =
+			    SWITCH(
+			        TRUE(),
+			        NOT ISBLANK(SELECTEDVALUE('Dim_Product'[Product_Name])), "Diferença entre anos por Produto",
+			        NOT ISBLANK(SELECTEDVALUE('Dim_Product'[Produt_Type])), "Diferença entre anos por Tipo de Produto",
+			        NOT ISBLANK(SELECTEDVALUE('Dim_account'[country])), "Diferença entre anos por País",
+			        NOT ISBLANK(SELECTEDVALUE('Dim_Date'[Month])), "Diferença entre anos por Mês",
+			        "Diferença entre anos"
+			    )
+			RETURN Nivel
+			
+			
+			```
+		lineageTag: 34ccc4c4-81d7-48ca-b72a-4bd86986fa9b
+
+	measure '_Título Acúmulo Ano' = ```
+			
+			VAR Selecionado =
+			    SWITCH(
+			        SELECTEDVALUE(Slc_Values[Values]),
+			        "Sales", "Vendas",
+			        "Quantity", "Quantidade",
+			        "Gross_Profit", "Lucro Bruto",
+			        SELECTEDVALUE(Slc_Values[Values])  
+			    )
+			RETURN
+			    Selecionado &
+			    " Ano Atual vs Ano Passado | " &
+			    IF(
+			        ISINSCOPE('Dim_Date'[Quarter]), "Trimestre",
+			        IF(
+			            ISINSCOPE('Dim_Date'[Month]), "Mês",
+			            IF(
+			                ISINSCOPE('Dim_Product'[Produt_Type]), "Tipo de Produto",
+			                IF(
+			                    ISINSCOPE('Dim_Product'[Product_Name]), "Produto",
+			                    "Total"
+			                )
+			            )
+			        )
+			    )
+			
+			
+			```
+		lineageTag: c68ef3ca-9426-4bfc-b3a2-2f9b51795159
+
+	measure '_Título Scatter' = ```
+			
+			VAR MetricaTraduzida =
+			    SWITCH(
+			        SELECTEDVALUE(Slc_Values[Values]),
+			        "Sales", "Vendas",
+			        "Quantity", "Quantidade",
+			        "Gross Profit", "Lucro Bruto",
+			        SELECTEDVALUE(Slc_Values[Values])
+			    )
+			RETURN
+			    MetricaTraduzida &
+			    " | Segmentação de Contas por Lucratividade | Por " &
+			    MetricaTraduzida
+			
+			```
+		lineageTag: 71146ce1-9d3b-41bb-985d-94da9473141c
+
+	measure '_Título Dashboard' = ```
+			
+			VAR MetricaTraduzida =
+			    SWITCH(
+			        SELECTEDVALUE(Slc_Values[Values]),
+			        "Sales", "Vendas",
+			        "Quantity", "Quantidade",
+			        "Gross Profit", "Lucro Bruto",
+			        SELECTEDVALUE(Slc_Values[Values])
+			    )
+			RETURN
+			    "Relatório de " &
+			    MetricaTraduzida &
+			    " | Desempenho " &
+			    SELECTEDVALUE(Dim_Date[Year])
+			
+			```
+		lineageTag: d5157e82-4128-48bf-bd82-db8a894d7300
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 6096be2a-616c-4d25-a930-3b84f2c2defa
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = bdd46d2fcd214042b33ba76d236ffe8d
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

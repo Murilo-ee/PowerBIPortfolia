@@ -1,0 +1,86 @@
+table Dim_Product
+	lineageTag: bd1d78a4-185b-4ff4-aef4-74208670cf86
+
+	column Product_Family
+		dataType: string
+		lineageTag: aa0d7d9e-9da4-4a2d-a8dc-6d784faf5e9f
+		summarizeBy: none
+		sourceColumn: Product_Family
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Family_Id
+		dataType: int64
+		formatString: 0
+		lineageTag: c27c304d-0fcd-4e1a-b0bc-4ae6746cfcf8
+		summarizeBy: none
+		sourceColumn: Product_Family_Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Group
+		dataType: string
+		lineageTag: 9786fb6d-5ce1-4edb-a667-96114aa9e85c
+		summarizeBy: none
+		sourceColumn: Product_Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Group_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c1f1737-9237-4f47-a79b-8c7eb0485d30
+		summarizeBy: none
+		sourceColumn: Product_Group_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Name
+		dataType: string
+		lineageTag: 4c5d9e34-0098-4e13-bef6-339a82bb2f2c
+		summarizeBy: none
+		sourceColumn: Product_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Name_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ce53ca2-4fa5-4fac-b647-d055ed944a6a
+		summarizeBy: none
+		sourceColumn: Product_Name_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Size
+		dataType: string
+		lineageTag: a1fa4f06-be42-450d-a8be-64305bb08052
+		summarizeBy: none
+		sourceColumn: Product_Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Produt_Type
+		dataType: string
+		lineageTag: ea501e4e-917e-4f2d-91b5-7ac5a85f0147
+		summarizeBy: none
+		sourceColumn: Produt_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\muril\Downloads\Plant_DTS.xls"), null, true),
+				    Plant_Hierarchy1 = Source{[Name="Plant_Hierarchy"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Plant_Hierarchy1, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Product_Family", type text}, {"Product_Family_Id", Int64.Type}, {"Product_Group", type text}, {"Product_Group_id", Int64.Type}, {"Product_Name", type text}, {"Product_Name_id", Int64.Type}, {"Product_Size", type text}, {"Produt_Type", type text}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type", {"Product_Name_id"})
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

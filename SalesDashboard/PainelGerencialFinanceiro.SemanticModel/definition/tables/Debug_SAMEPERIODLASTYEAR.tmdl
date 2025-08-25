@@ -1,0 +1,28 @@
+table Debug_SAMEPERIODLASTYEAR
+	lineageTag: b0ddadb4-3865-4447-b58c-9c89ffdabbd3
+
+	column Column
+		formatString: 0
+		lineageTag: 4206fe34-a0ac-41ca-b2a9-842f738e70a9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Debug_SAMEPERIODLASTYEAR = calculated
+		mode: import
+		source = ```
+				
+				VAR DatesReturned =
+				    CALCULATETABLE (
+				        VALUES ( Dim_Date[Date] ),
+				        SAMEPERIODLASTYEAR ( Dim_Date[Date] )
+				    )
+				RETURN
+				COUNTROWS ( DatesReturned )
+				
+				```
+
+	annotation PBI_Id = bef8955b5c6d4da5852cb13b9b7f36d4
+
