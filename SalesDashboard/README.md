@@ -3,7 +3,7 @@
 ## 📝 Sobre o Projeto  
 Este projeto faz parte do meu portfólio e tem como objetivo **monitorar os principais KPIs** de uma empresa fictícia internacional de plantas, utilizando um **dashboard interativo** no **Power BI**.  
 
-Os dados brutos estão armazenados em **Excel** e foram tratados no **Power Query** antes da modelagem. Todas as medidas foram criadas em **DAX**, com foco no **desenvolvimento de habilidades analíticas** e na criação de um painel intuitivo, dinâmico e interativo.  
+Os dados brutos estão armazenados em **Excel** e foram tratados no **Power Query** antes da modelagem. Todas as medidas foram criadas em **DAX** para o **desenvolvimento de habilidades** e para poder criar um painel intuitivo, dinâmico e interativo.  
 
 O dashboard permite acompanhar **faturamento bruto, quantidade vendida e lucro bruto** em diferentes níveis de detalhamento, oferecendo filtros por **ano** e **tipo de indicador**. Todos os títulos, valores e visuais são atualizados dinamicamente com base na seleção do usuário.  
 
