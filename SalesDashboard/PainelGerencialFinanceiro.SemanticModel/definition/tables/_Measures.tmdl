@@ -159,16 +159,19 @@ table _Measures
 
 	measure 'Título Diferença' = ```
 			
-			VAR Nivel =
-			    SWITCH(
-			        TRUE(),
-			        NOT ISBLANK(SELECTEDVALUE('Dim_Product'[Product_Name])), "Diferença entre anos por Produto",
-			        NOT ISBLANK(SELECTEDVALUE('Dim_Product'[Produt_Type])), "Diferença entre anos por Tipo de Produto",
-			        NOT ISBLANK(SELECTEDVALUE('Dim_account'[country])), "Diferença entre anos por País",
-			        NOT ISBLANK(SELECTEDVALUE('Dim_Date'[Month])), "Diferença entre anos por Mês",
-			        "Diferença entre anos"
-			    )
-			RETURN Nivel
+			VAR Produto = SELECTEDVALUE('Dim_Product'[Product_Name])
+			VAR Tipo = SELECTEDVALUE('Dim_Product'[Produt_Type])
+			VAR Pais = SELECTEDVALUE('Dim_account'[country])
+			VAR Mes = SELECTEDVALUE('Dim_Date'[Month])
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    NOT ISBLANK(Produto), "Diferença entre anos — Produto: " & Produto,
+			    NOT ISBLANK(Tipo), "Diferença entre anos — Tipo de Produto: " & Tipo,
+			    NOT ISBLANK(Pais), "Diferença entre anos — País: " & Pais,
+			    NOT ISBLANK(Mes), "Diferença entre anos — Mês: " & Mes,
+			    "Diferença entre anos"
+			)
 			
 			
 			```
@@ -241,6 +244,20 @@ table _Measures
 			
 			```
 		lineageTag: d5157e82-4128-48bf-bd82-db8a894d7300
+
+	measure NomeEixoX = ```
+			
+			SWITCH(
+			    TRUE(),
+			    ISINSCOPE('Dim_Product'[Product_Name]), "Produto",
+			    ISINSCOPE('Dim_Product'[Produt_Type]), "Tipo de Produto",
+			    ISINSCOPE('Dim_account'[country]), "País",
+			    ISINSCOPE('Dim_Date'[Month]), "Mês",
+			    "Categoria"
+			)
+			
+			```
+		lineageTag: cb832f48-6b94-41e7-9232-c9e5eee29f38
 
 	column Column
 		isHidden
