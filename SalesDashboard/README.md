@@ -39,7 +39,7 @@ A hierarquia de detalhamento segue a seguinte ordem:
 
 No exemplo abaixo, foi realizado o drill down em um **mês específico**, detalhando os resultados por **tipo de produto**. Isso possibilita entender quais categorias tiveram maior impacto no desempenho do período.
 
-![Drill Down no Waterfall](Dashboard.jpg)
+![Drill Down no Waterfall](Dashboard2.jpg)
 
 ---
 
@@ -50,7 +50,7 @@ O **scatterplot** exibe a **lucratividade (%)** das contas em relação ao **val
 
 No exemplo abaixo, uma conta foi selecionada para acompanhar sua performance individual, note que o pais correspondete ao usuario já é selecionado como consequência
 
-![Segmentação de Contas](Dashboard.jpg)
+![Segmentação de Contas](Dashboard3.jpg)
 
 ---
 
