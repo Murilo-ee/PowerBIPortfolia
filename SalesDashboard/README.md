@@ -123,15 +123,6 @@ Tabela de **produtos** (*dimensão*), com detalhes sobre categorias, tipos e tam
 | Product_Size   | Tamanho do produto           |
 | Product_Type   | Tipo do produto             |
 
----
-
-## 🚀 Principais Destaques do Projeto  
-
-- **Uso de DAX** para cálculo dinâmico de KPIs.  
-- **Drill down interativo** no gráfico waterfall para análise detalhada.  
-- **Segmentação de contas** para acompanhamento individual da performance.  
-- **Modelagem otimizada** com esquema estrela, melhorando tempo de resposta.  
-- **Design responsivo e intuitivo**, pensado para gestores e tomadores de decisão.  
 
 
 
