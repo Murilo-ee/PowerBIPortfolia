@@ -48,7 +48,7 @@ No exemplo abaixo, foi realizado o drill down em um **mês específico**, detalh
 O **scatterplot** exibe a **lucratividade (%)** das contas em relação ao **valor acumulado no ano**.  
 É possível selecionar **uma conta específica** diretamente no gráfico, e todos os demais visuais do dashboard são filtrados para apresentar os indicadores relacionados apenas a esse cliente.  
 
-No exemplo abaixo, uma conta foi selecionada para acompanhar sua performance individual.
+No exemplo abaixo, uma conta foi selecionada para acompanhar sua performance individual, note que o pais correspondete ao usuario já é selecionado como consequência
 
 ![Segmentação de Contas](Dashboard3.jpg)
 
