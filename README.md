@@ -1,2 +1,2 @@
 # PowerBIPortfolia
-Meus dashboard de powerbi ficam nesse repositório
+Meus dashboards de powerBI ficarão nesse repositório
